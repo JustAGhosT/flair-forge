@@ -21,6 +21,7 @@ app.get('/api/health', (req, res) => {
 
 // Flyer Endpoints
 app.post('/api/generate-flyer', flyerController.generate);
+app.post('/api/enhance-content', flyerController.enhanceContent); // Added endpoint
 app.get('/api/templates', flyerController.getTemplates);
 
 // Error handling middleware

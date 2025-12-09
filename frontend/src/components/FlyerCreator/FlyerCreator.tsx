@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './FlyerCreator.module.css';
 import { useAppStore } from '../../store/useAppStore';
+import { api } from '../../services/api';
 
 interface FlyerCreatorProps {
   onClose: () => void;
@@ -9,22 +10,72 @@ interface FlyerCreatorProps {
 export function FlyerCreator({ onClose }: FlyerCreatorProps) {
   const [step, setStep] = React.useState<'template'|'content'|'ai'|'preview'|'export'>('template');
   const [error, setError] = React.useState<string|null>(null);
+  const [loading, setLoading] = React.useState(false);
   const [aiInput, setAiInput] = React.useState('');
   const [aiOutput, setAiOutput] = React.useState('');
   const [showPreview, setShowPreview] = React.useState(false);
   const [exportMsg, setExportMsg] = React.useState('');
+  const [previewUrl, setPreviewUrl] = React.useState<string | null>(null);
 
   const { flyerData, updateFlyerData } = useAppStore();
 
-  // Simulate AI enhancement
-  const handleEnhance = () => {
-    setTimeout(() => setAiOutput(aiInput ? `${aiInput} (Enhanced)` : ''), 500);
+  // AI enhancement
+  const handleEnhance = async () => {
+    if (!aiInput) return;
+    setLoading(true);
+    try {
+      const result = await api.enhanceContent(aiInput);
+      setAiOutput(result.enhanced);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Simulate export
+  // Generate Flyer
+  const handleGenerate = async () => {
+    if (!flyerData.title) {
+      setError('Title is required');
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    try {
+      const result = await api.generateFlyer(flyerData.selectedTemplate, {
+        title: flyerData.title,
+        description: flyerData.description,
+        contact: flyerData.contact,
+        colorScheme: flyerData.colorScheme
+      });
+
+      setPreviewUrl(result.flyerUrl);
+      updateFlyerData({ finalImageUrl: result.flyerUrl });
+
+      setShowPreview(true);
+      setStep('preview');
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleExport = (type: string) => {
-    setExportMsg(`Exported as ${type.toUpperCase()}`);
-    setTimeout(() => setExportMsg(''), 1500);
+    setExportMsg(`Downloading ${type.toUpperCase()}...`);
+
+    // Create a temporary link to download
+    if (previewUrl && (type === 'pdf' || type === 'png')) {
+      const a = document.createElement('a');
+      a.href = previewUrl;
+      a.download = `flyer-${Date.now()}.${type === 'png' ? 'png' : 'pdf'}`; // The backend returns PDF data URI, but for this POC we pretend
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    setTimeout(() => setExportMsg(''), 2000);
   };
 
   return (
@@ -96,7 +147,6 @@ export function FlyerCreator({ onClose }: FlyerCreatorProps) {
             value={flyerData.title}
             onChange={e=>updateFlyerData({ title: e.target.value })}
           />
-          {error && <div data-testid="title-error" className={styles.error}>{error}</div>}
           <input
             data-testid="description-input"
             placeholder="Description"
@@ -112,17 +162,10 @@ export function FlyerCreator({ onClose }: FlyerCreatorProps) {
           <button
             data-testid="generate-flyer-button"
             className={styles.primary}
-            onClick={() => {
-              if (!flyerData.title) {
-                setError('Title is required');
-                return;
-              }
-              setShowPreview(true);
-              setStep('preview');
-              setError(null);
-            }}
+            disabled={loading}
+            onClick={handleGenerate}
           >
-            Generate Flyer
+            {loading ? 'Generating...' : 'Generate Flyer'}
           </button>
         </div>
       )}
@@ -136,7 +179,13 @@ export function FlyerCreator({ onClose }: FlyerCreatorProps) {
             value={aiInput}
             onChange={e=>setAiInput(e.target.value)}
           />
-          <button data-testid="enhance-content-button" onClick={handleEnhance}>Enhance</button>
+          <button
+            data-testid="enhance-content-button"
+            onClick={handleEnhance}
+            disabled={loading}
+          >
+            {loading ? 'Enhancing...' : 'Enhance'}
+          </button>
           <div data-testid="enhanced-content">{aiOutput}</div>
         </div>
       )}
@@ -146,9 +195,24 @@ export function FlyerCreator({ onClose }: FlyerCreatorProps) {
           <h3 data-testid="flyer-title">{flyerData.title}</h3>
           <p data-testid="flyer-description">{flyerData.description}</p>
           <p>Contact: {flyerData.contact}</p>
-          <button data-testid="export-png-button" onClick={()=>handleExport('png')}>Export as PNG</button>
-          <button data-testid="export-pdf-button" onClick={()=>handleExport('pdf')}>Export as PDF</button>
-          {exportMsg && <div>{exportMsg}</div>}
+
+          {previewUrl && (
+            <div className={styles.previewContainer}>
+              <iframe
+                src={previewUrl}
+                width="100%"
+                height="500px"
+                title="Flyer PDF Preview"
+                style={{ border: 'none', marginBottom: '1rem' }}
+              />
+            </div>
+          )}
+
+          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+            <button data-testid="export-png-button" className={styles.primary} onClick={()=>handleExport('png')}>Download PNG</button>
+            <button data-testid="export-pdf-button" className={styles.primary} onClick={()=>handleExport('pdf')}>Download PDF</button>
+          </div>
+          {exportMsg && <div style={{ textAlign: 'center', marginTop: '10px', color: 'green' }}>{exportMsg}</div>}
         </div>
       )}
 

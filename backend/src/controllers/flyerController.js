@@ -1,4 +1,5 @@
 import { flyerService } from '../services/flyerService.js';
+import { aiService } from '../services/aiService.js';
 
 export const flyerController = {
   /**
@@ -19,16 +20,12 @@ export const flyerController = {
       // Call Service
       const result = await flyerService.generateFlyer(template, data);
 
-      // Return the PDF directly or a URL/Base64
-      // For this POC, we'll return Base64 so the frontend can display it easily without blob complexity
-      // (or we could stream the binary)
-
       const base64Pdf = result.buffer.toString('base64');
 
       return res.json({
         success: true,
         message: 'Flyer generated successfully',
-        flyerUrl: `data:application/pdf;base64,${base64Pdf}`, // Data URI for easy preview
+        flyerUrl: `data:application/pdf;base64,${base64Pdf}`,
         filename: result.filename
       });
 
@@ -42,10 +39,35 @@ export const flyerController = {
   },
 
   /**
+   * Handle content enhancement request
+   */
+  async enhanceContent(req, res) {
+    try {
+      const { text } = req.body;
+
+      if (!text) {
+        return res.status(400).json({ error: 'Text is required' });
+      }
+
+      const enhanced = await aiService.enhanceContent(text);
+
+      return res.json({
+        success: true,
+        enhanced
+      });
+    } catch (error) {
+      console.error('AI Enhancement Error:', error);
+      return res.status(500).json({
+        error: 'Failed to enhance content',
+        details: error.message
+      });
+    }
+  },
+
+  /**
    * List available templates
    */
   async getTemplates(req, res) {
-    // Mock data - in real app would come from DB or file system
     const templates = [
       { id: 'cheesy-pig', name: 'Cheesy Pig Promo', description: 'Fun and colorful for food promos' },
       { id: 'business-classic', name: 'Business Classic', description: 'Clean and professional' }

@@ -19,8 +19,8 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'FlairForge Backend is running' });
 });
 
-// Use the same controller as the Netlify function
 app.post('/api/generate-flyer', flyerController.generate);
+app.post('/api/enhance-content', flyerController.enhanceContent); // Added endpoint
 app.get('/api/templates', flyerController.getTemplates);
 
 // Error handling middleware
