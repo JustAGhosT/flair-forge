@@ -1,0 +1,142 @@
+.flyerCreatorPanel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--background);
+  z-index: 1000;
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.closeBtn {
+  position: absolute;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  background: transparent;
+  border: none;
+  font-size: var(--font-size-xl);
+  cursor: pointer;
+  color: var(--muted-foreground);
+}
+
+.closeBtn:hover {
+  color: var(--error);
+}
+
+.tabs {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--space-sm);
+}
+
+.tabs button {
+  background: transparent;
+  border: none;
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  transition: all var(--transition);
+}
+
+.tabs button.activeTab {
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+}
+
+.templatesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.templatesGrid button {
+  height: 150px;
+  border: 2px solid var(--border);
+  border-radius: var(--border-radius);
+  background: var(--surface);
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.templatesGrid button:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.templatesGrid button.selectedTemplate {
+  border-color: var(--primary);
+  background: var(--surface-alt);
+  color: var(--primary);
+  box-shadow: var(--shadow-md);
+}
+
+.templatePreview {
+  margin: var(--space-lg) 0;
+  padding: var(--space-lg);
+  background: var(--surface-alt);
+  border: 1px dashed var(--border);
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+.primary {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.primary:hover {
+  background: var(--primary-hover);
+}
+
+.error {
+  color: var(--error);
+  margin-top: var(--space-sm);
+  font-size: var(--font-size-sm);
+}
+
+.flyerPreview {
+  background: white;
+  padding: var(--space-2xl);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  margin-top: var(--space-xl);
+  color: black;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input {
+  width: 100%;
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  background: var(--surface);
+  color: var(--foreground);
+}
+
+input:focus {
+  outline: 2px solid var(--primary);
+  border-color: transparent;
+}
