@@ -9,6 +9,7 @@ export interface Product {
 export interface FlyerData {
   title: string;
   subtitle: string;
+  contact?: string; // Added contact field
   type: FlyerType;
   products: Product[];
   description: string;
@@ -39,7 +40,7 @@ export type WorkflowStep = 'template' | 'content' | 'ai' | 'preview' | 'export';
 
 export type FlyerType = 'products' | 'events' | 'catalog' | 'promotion' | 'custom' | '';
 
-export type TemplateType = 'modern' | 'rustic' | 'premium' | 'promo' | 'catalog';
+export type TemplateType = string; // Changed to string to support dynamic templates
 
 export type ColorScheme = 'default' | 'green' | 'blue' | 'purple';
 
@@ -82,5 +83,3 @@ export interface DOMElements {
   btnSaveFlyer: HTMLButtonElement;
   btnCreateNew: HTMLButtonElement;
 }
-
-// CSS Module declarations will be handled by Vite
