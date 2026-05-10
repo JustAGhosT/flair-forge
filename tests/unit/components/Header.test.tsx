@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import Header from '../../../frontend/src/components/Header/Header'
 import { render, screen } from '../../../frontend/src/test/utils'
-import styles from '../../../src/components/Header/Header.module.css'
+import styles from '../../../frontend/src/components/Header/Header.module.css'
 
 describe('Header Component', () => {
   it('renders the logo', () => {
@@ -34,4 +34,4 @@ describe('Header Component', () => {
     const header = screen.getByRole('banner')
     expect(header).toHaveClass(styles.header)
   })
-}) 
+})
