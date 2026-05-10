@@ -5,6 +5,7 @@ export const aiService = {
    * @returns {Promise<string>} - The enhanced text
    */
   async enhanceContent(text) {
+    // eslint-disable-next-line no-console
     console.log('Enhancing content:', text);
 
     // In a real app, call OpenAI/Anthropic API here.

@@ -9,7 +9,7 @@ import Header from './components/Header';
 import { FlyerCreator } from './components/FlyerCreator/FlyerCreator';
 
 // Local UI state for the TemplateStep selection
-const useTemplateStepStore = create<{ selectedOption: string | null; setSelectedOption: (option: string) => void }>((set: any) => ({
+const useTemplateStepStore = create<{ selectedOption: string | null; setSelectedOption: (option: string) => void }>((set) => ({
   selectedOption: null,
   setSelectedOption: (option: string) => set({ selectedOption: option }),
 }));

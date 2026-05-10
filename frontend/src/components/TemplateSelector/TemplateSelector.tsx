@@ -1,6 +1,13 @@
 import styles from './TemplateSelector.module.css';
 
-export default function TemplateSelector({ templates, onSelect }: { templates: any[]; onSelect: (id: string) => void }) {
+interface TemplateSummary {
+  id: string;
+  image: string;
+  title: string;
+  description: string;
+}
+
+export default function TemplateSelector({ templates, onSelect }: { templates: TemplateSummary[]; onSelect: (id: string) => void }) {
   const safeTemplates = templates || [];
   return (
     <div className={styles.templatesGrid}>

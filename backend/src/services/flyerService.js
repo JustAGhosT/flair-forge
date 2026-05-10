@@ -1,6 +1,4 @@
 import puppeteer from 'puppeteer';
-import path from 'path';
-import fs from 'fs';
 
 export const flyerService = {
   /**
@@ -10,6 +8,7 @@ export const flyerService = {
    * @returns {Promise<Buffer>} - The generated PDF/Image buffer
    */
   async generateFlyer(templateId, data) {
+    // eslint-disable-next-line no-console
     console.log(`Generating flyer with template: ${templateId}`);
 
     // In a real app, we would load an EJS/HTML template here.
@@ -60,6 +59,7 @@ export const flyerService = {
     // Basic styles based on templateId
     let bgStyle = 'background-color: #ffffff;';
     let fontStyle = 'font-family: sans-serif;';
+    let accentColor = '#d32f2f';
 
     if (templateId === 'cheesy-pig') {
       bgStyle = 'background-color: #ffe6e6;'; // Pinkish
@@ -67,6 +67,14 @@ export const flyerService = {
     } else if (templateId === 'business-classic') {
       bgStyle = 'background-color: #f8f9fa;'; // Light grey
       fontStyle = 'font-family: "Times New Roman", Times, serif;';
+    }
+
+    if (colorScheme === 'green') {
+      accentColor = '#2e7d32';
+    } else if (colorScheme === 'blue') {
+      accentColor = '#1565c0';
+    } else if (colorScheme === 'purple') {
+      accentColor = '#6a1b9a';
     }
 
     return `
@@ -77,7 +85,7 @@ export const flyerService = {
         <style>
           body { margin: 0; padding: 40px; ${bgStyle} ${fontStyle} color: #333; }
           .container { max-width: 800px; margin: 0 auto; border: 1px solid #ddd; padding: 40px; background: white; }
-          h1 { color: #d32f2f; font-size: 48px; text-align: center; margin-bottom: 20px; }
+          h1 { color: ${accentColor}; font-size: 48px; text-align: center; margin-bottom: 20px; }
           p { font-size: 24px; line-height: 1.6; margin-bottom: 30px; }
           .contact { margin-top: 50px; padding-top: 20px; border-top: 2px solid #333; font-weight: bold; text-align: center; font-size: 20px; }
           .footer { margin-top: 40px; text-align: center; font-size: 12px; color: #888; }

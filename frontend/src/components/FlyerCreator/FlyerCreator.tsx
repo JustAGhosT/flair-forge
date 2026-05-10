@@ -7,6 +7,10 @@ interface FlyerCreatorProps {
   onClose: () => void;
 }
 
+function getErrorMessage(error: unknown) {
+  return error instanceof Error ? error.message : 'An unexpected error occurred';
+}
+
 export function FlyerCreator({ onClose }: FlyerCreatorProps) {
   const [step, setStep] = React.useState<'template'|'content'|'ai'|'preview'|'export'>('template');
   const [error, setError] = React.useState<string|null>(null);
@@ -26,8 +30,8 @@ export function FlyerCreator({ onClose }: FlyerCreatorProps) {
     try {
       const result = await api.enhanceContent(aiInput);
       setAiOutput(result.enhanced);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(getErrorMessage(err));
     } finally {
       setLoading(false);
     }
@@ -55,8 +59,8 @@ export function FlyerCreator({ onClose }: FlyerCreatorProps) {
 
       setShowPreview(true);
       setStep('preview');
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(getErrorMessage(err));
     } finally {
       setLoading(false);
     }

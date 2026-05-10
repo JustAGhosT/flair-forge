@@ -24,7 +24,7 @@ app.post('/api/enhance-content', flyerController.enhanceContent); // Added endpo
 app.get('/api/templates', flyerController.getTemplates);
 
 // Error handling middleware
-app.use((err, req, res, next) => {
+app.use((err, req, res, _next) => {
   console.error(err.stack);
   res.status(500).json({
     error: 'Something went wrong!',
@@ -38,6 +38,8 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(`🚀 FlairForge Backend running on port ${PORT}`);
+  // eslint-disable-next-line no-console
   console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
 });

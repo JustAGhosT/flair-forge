@@ -15,7 +15,7 @@
     "test:coverage": "vitest --coverage",
     "test:e2e": "playwright test --config=../tests/__config__/playwright.config.ts",
     "test:e2e:ui": "playwright test --ui",
-    "test:performance": "k6 run tests/performance/load-test.js",
+    "test:performance": "k6 run ../tests/performance/load-test.js",
     "test:security": "npm audit --audit-level=high && npm run test:security-scan",
     "test:security-scan": "echo 'Security scanning placeholder'",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 10",
@@ -41,7 +41,7 @@
     "jsdom": "^24.0.0",
     "playwright": "^1.55.1",
     "typescript": "^5.0.0",
-    "vite": "^5.4.21",
+    "vite": "^6.4.2",
     "vitest": "^3.2.4"
   },
   "dependencies": {
