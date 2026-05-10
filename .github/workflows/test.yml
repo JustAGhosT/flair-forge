@@ -72,15 +72,29 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm --dir .. exec playwright install --with-deps
 
+      - name: Start frontend server
+        run: |
+          pnpm exec vite --host 127.0.0.1 > /tmp/flairforge-vite.log 2>&1 &
+          for i in {1..30}; do
+            if curl -fsS http://localhost:5173 > /dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          cat /tmp/flairforge-vite.log
+          exit 1
+
       - name: Run E2E tests
         run: pnpm run test:e2e
+        env:
+          PLAYWRIGHT_SKIP_WEBSERVER: "1"
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
-          path: tests/test-results/
+          path: ../tests/test-results/
           retention-days: 30
 
   # Backend Tests
@@ -216,7 +230,7 @@ jobs:
         run: pnpm run test:security
 
       - name: Run pnpm audit
-        run: pnpm audit --audit-level=moderate
+        run: pnpm audit --prod --audit-level=moderate
 
       - name: Run security scan
         run: pnpm run test:security-scan

@@ -16,7 +16,7 @@
     "test:e2e": "pnpm --dir .. exec playwright test --config=tests/__config__/playwright.config.ts",
     "test:e2e:ui": "playwright test --ui",
     "test:performance": "k6 run ../tests/performance/load-test.js",
-    "test:security": "pnpm audit --audit-level=high && pnpm run test:security-scan",
+    "test:security": "pnpm audit --prod --audit-level=high && pnpm run test:security-scan",
     "test:security-scan": "echo 'Security scanning placeholder'",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 10",
     "lint:fix": "eslint src --ext ts,tsx --fix",

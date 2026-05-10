@@ -1,6 +1,15 @@
 import { defineConfig, devices } from '@playwright/test'
 
 const frontendDir = process.cwd().endsWith('frontend') ? process.cwd() : 'frontend'
+const webServer = process.env.PLAYWRIGHT_SKIP_WEBSERVER
+  ? undefined
+  : {
+      command: 'pnpm exec vite --host 127.0.0.1',
+      cwd: frontendDir,
+      url: 'http://localhost:5173',
+      reuseExistingServer: !process.env.CI,
+      timeout: 120 * 1000
+    }
 
 export default defineConfig({
   testDir: '../e2e',
@@ -39,11 +48,5 @@ export default defineConfig({
     }
   ],
 
-  webServer: {
-    command: 'pnpm exec vite --host 127.0.0.1',
-    cwd: frontendDir,
-    url: 'http://localhost:5173',
-    reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000
-  }
+  webServer
 })
