@@ -9,7 +9,7 @@ export const flyerService = {
    */
   async generateFlyer(templateId, data) {
     // eslint-disable-next-line no-console
-    console.log(`Generating flyer with template: ${templateId}`);
+    console.log('Generating flyer');
 
     // In a real app, we would load an EJS/HTML template here.
     // For this POC, we will construct a simple HTML string.

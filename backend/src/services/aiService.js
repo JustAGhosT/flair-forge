@@ -6,7 +6,7 @@ export const aiService = {
    */
   async enhanceContent(text) {
     // eslint-disable-next-line no-console
-    console.log('Enhancing content:', text);
+    console.log('Enhancing content');
 
     // In a real app, call OpenAI/Anthropic API here.
     // await openai.chat.completions.create(...)

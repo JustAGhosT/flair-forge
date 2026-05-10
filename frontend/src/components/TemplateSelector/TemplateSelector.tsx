@@ -1,13 +1,18 @@
 import styles from './TemplateSelector.module.css';
 
 interface TemplateSummary {
-  id: string;
-  image: string;
-  title: string;
-  description: string;
+  readonly id: string;
+  readonly image: string;
+  readonly title: string;
+  readonly description: string;
 }
 
-export default function TemplateSelector({ templates, onSelect }: { templates: TemplateSummary[]; onSelect: (id: string) => void }) {
+interface TemplateSelectorProps {
+  readonly templates: readonly TemplateSummary[];
+  readonly onSelect: (id: string) => void;
+}
+
+export default function TemplateSelector({ templates, onSelect }: TemplateSelectorProps) {
   const safeTemplates = templates || [];
   return (
     <div className={styles.templatesGrid}>
