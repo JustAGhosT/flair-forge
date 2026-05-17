@@ -46,4 +46,9 @@ This project has not yet been onboarded to [AgentKit Forge](https://github.com/p
 
 ## Baton Integration
 
-Baton is the shared task graph for cross-repo work. When the `baton` MCP server is available, agents should check for existing work with `task_check` at the start of meaningful tasks, create or claim visible work with `task_notify`/`log_agent_message`, update the task when significant new information becomes available, and log completion or blockers before handing off.
+Baton is the shared task graph for cross-repo work. When the `baton` MCP server is available, agents should:
+
+- Check for existing work with `task_check` at the start of meaningful tasks
+- Create or claim visible work using `task_notify` or `log_agent_message`
+- Update the task when significant new information becomes available
+- Log completion or blockers before handing off

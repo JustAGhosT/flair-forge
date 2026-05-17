@@ -26,9 +26,10 @@ app.get('/api/templates', flyerController.getTemplates);
 // Error handling middleware
 app.use((err, req, res, _next) => {
   console.error(err.stack);
+  const isProduction = process.env.NODE_ENV === 'production';
   res.status(500).json({
     error: 'Something went wrong!',
-    message: err.message
+    message: isProduction ? 'Internal server error' : err.message
   });
 });
 
