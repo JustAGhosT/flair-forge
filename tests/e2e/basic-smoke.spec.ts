@@ -5,7 +5,7 @@ test.describe('Basic Smoke Tests', () => {
     await page.goto('/')
     
     // Verify the page loaded
-    await expect(page).toHaveTitle(/FlairForge|Vite/)
+    await expect(page).toHaveTitle(/FlairForge|AI-Powered Flyer Generator|Vite/)
     
     // Verify basic app structure is present
     const body = await page.locator('body')

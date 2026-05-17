@@ -15,7 +15,7 @@
     "test:api": "supertest tests/api",
     "test:contract": "dredd api/openapi.yaml http://localhost:8888",
     "test:performance": "k6 run tests/performance/load-test.js",
-    "test:security": "npm audit --audit-level=high && npm run test:security-scan",
+    "test:security": "pnpm audit --audit-level=high && pnpm run test:security-scan",
     "test:security-scan": "echo 'Security scanning placeholder'",
     "build": "echo \"No build step required for Netlify Functions\"",
     "lint": "eslint src --ext js --report-unused-disable-directives --max-warnings 0",

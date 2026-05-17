@@ -10,7 +10,7 @@ FlairForge is an AI-powered flyer generation platform that transforms content in
 - **Frontend**: React 18 with TypeScript, Vite build system, deployed on Netlify
 - **Backend**: Node.js/Express API, deployed as Netlify serverless functions
 - **Deployment**: Netlify with automatic builds and deployments
-- **Monorepo**: Uses npm workspaces with separate frontend and backend packages
+- **Monorepo**: Uses pnpm workspaces with separate frontend and backend packages
 
 ## Technology Stack
 
@@ -34,21 +34,21 @@ FlairForge is an AI-powered flyer generation platform that transforms content in
 
 ### Prerequisites
 - Node.js 18 or higher
-- npm 8 or higher
+- pnpm 10 or higher
 
 ### Getting Started
 ```bash
 # Install dependencies for all workspaces
-npm install
+pnpm install
 
 # Start development servers for frontend and backend
-npm run dev
+pnpm run dev
 
 # Start only frontend (port 3000)
-npm run dev:frontend
+pnpm run dev:frontend
 
 # Start only backend (port 8888)
-npm run dev:backend
+pnpm run dev:backend
 ```
 
 ### Project Structure
@@ -118,22 +118,22 @@ flairforge/
 
 ```bash
 # Run all tests (frontend + backend)
-npm test
+pnpm test
 
 # Run unit tests only
-npm run test:unit
+pnpm run test:unit
 
 # Run frontend tests
-npm run test:frontend
+pnpm run test:frontend
 
 # Run backend tests
-npm run test:backend
+pnpm run test:backend
 
 # Run E2E tests
-npm run test:e2e
+pnpm run test:e2e
 
 # Run with coverage
-npm run test:coverage
+pnpm run test:coverage
 ```
 
 ### Test Guidelines
@@ -156,18 +156,18 @@ npm run test:coverage
 ### Build Commands
 ```bash
 # Build both frontend and backend
-npm run build
+pnpm run build
 
 # Build frontend only
-npm run build:frontend
+pnpm run build:frontend
 
 # Build backend only (Netlify Functions)
-npm run build:backend
+pnpm run build:backend
 ```
 
 ### Netlify Deployment
 - **Base Directory**: `frontend`
-- **Build Command**: `npm run build`
+- **Build Command**: `pnpm run build`
 - **Publish Directory**: `dist`
 - **Functions Directory**: `backend/netlify/functions`
 - Backend API is deployed as serverless functions at `/.netlify/functions/api`
@@ -182,13 +182,13 @@ npm run build:backend
 ### Running Linters
 ```bash
 # Lint all code
-npm run lint
+pnpm run lint
 
 # Lint and auto-fix issues
-npm run lint:fix
+pnpm run lint:fix
 
 # Type check TypeScript
-npm run type-check
+pnpm run type-check
 ```
 
 ### Linting Rules
@@ -274,8 +274,8 @@ export function useTemplates() {
 
 ### Build Failures
 - Ensure Node.js version is 18 or higher
-- Clear node_modules and reinstall: `npm run clean && npm install`
-- Check TypeScript errors: `npm run type-check`
+- Clear node_modules and reinstall: `pnpm run clean && pnpm install`
+- Check TypeScript errors: `pnpm run type-check`
 
 ### Test Failures
 - Run tests individually to isolate issues
