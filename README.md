@@ -1,10 +1,18 @@
 
-# FlairForge - Cognitive Mesh
+# FlairForge (Retired & Absorbed)
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/flairforge/flairforge/actions)
-[![Coverage](https://img.shields.io/badge/coverage-85%25-yellowgreen.svg)](https://codecov.io/gh/flairforge/flairforge)
-[![Mesh Layer](https://img.shields.io/badge/mesh_layer-Business-purple.svg)](#mesh-integration)
+> [!IMPORTANT]
+> **FlairForge has been retired and absorbed into [OmniPost](https://github.com/neuralliquid/omnipost).**  
+> All creative flyer and promotional authoring capabilities, template schemas, Mill rendering adapters, and multi-channel asset generation now live natively within the OmniPost Creative Studio.
+> 
+> - **Absorbed Into**: [`neuralliquid/omnipost`](https://github.com/neuralliquid/omnipost)
+> - **ADR / Migration Plan**: [`docs/plans/FLAIRFORGE_TO_OMNIPOST_MIGRATION.md`](https://github.com/neuralliquid/omnipost/blob/main/docs/plans/FLAIRFORGE_TO_OMNIPOST_MIGRATION.md)
+> - **Recovery Release**: Immutable snapshot pinned to tag `recovery-20260827` (snapshot commit `9a582727`).
+> - **Rollback Runbook**: [`docs/flairforge-deployment-runbook.md`](docs/flairforge-deployment-runbook.md)
+
+---
+
+# FlairForge - Cognitive Mesh (Archived Baseline)
 
 AI-powered flyer generation platform leveraging Cognitive Mesh capabilities for intelligent content enhancement and professional template management.
 
